@@ -74,4 +74,30 @@
       }
     }
 
-    function
+     function resetQuiz() {
+      currentQuestion = 0;
+      score = 0;
+      showQuestion();
+      submitButton.disabled = false;
+    }
+
+    submitButton.addEventListener('click', () => {
+      const selectedAnswer = selectAnswer();
+      if (selectedAnswer) {
+        checkAnswer(selectedAnswer);
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+          showQuestion();
+        } else {
+          quizContainer.innerHTML = `
+            <h2>You scored ${score}/${questions.length} correct answers!</h2>
+            <button onclick="resetQuiz()">Restart Quiz</button>
+          `;
+        }
+      } else {
+        alert('Please select an answer!');
+      }
+    });
+
+    showQuestion();
